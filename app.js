@@ -5,10 +5,39 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var redis = require("redis"),
+    http = require('http'),
+    sockjs = require("sockjs"),
+    TokenSocketServer = require("node-token-sockjs"), 
+
+    redisClient = redis.createClient(),
+    pubsubClient = redis.createClient(), 
+    socketServer = sockjs.createServer();
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var server = http.createServer(app);
+var socketOptions = {
+    prefix: "/sockets"
+};
+socketServer.installHandlers(server, socketOptions);
+var tokenServer = new TokenSocketServer(app, redisClient, socketServer, {
+    prefix: socketOptions.prefix,
+    tokenRoute: "/socket/token",
+    pubsubClient: pubsubClient,
+    // socketController: controller,
+    // customMiddleware: customMiddleware,
+    // authentication: authenticationFn,
+    debug: app.get("env") !== "production"//,
+    // routes: {
+    //     user: {
+    //         read: readUsers // now this can be called via the RPC interface
+    //     }
+    // }
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

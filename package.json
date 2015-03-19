@@ -16,7 +16,10 @@
     "express": "~4.11.1",
     "jade": "~1.9.1",
     "morgan": "~1.5.1",
-    "serve-favicon": "~2.2.0"
+    "node-token-sockjs": "^2.1.5",
+    "redis": "^0.12.1",
+    "serve-favicon": "~2.2.0",
+    "sockjs": "^0.3.15"
   },
   "author": "Mauricio Kruijer",
   "license": "MIT"
