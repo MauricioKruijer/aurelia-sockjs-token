@@ -27,18 +27,22 @@ To run the app, follow these steps.
   > **Note:** jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts.
 
 5. Install backend packages
+
   ```shell
   npm install
   ```
 6. Install Aurelia packages
+
   ```shell
   npm run aurelia-npm
   ```
 7. Install Aurelia jspm packages
+
   ```shell
   npm run aurelia-jspm
   ```
 6. To run the app, execute the following command: (DEVELOPMENT)
+
   ```shell
   npm run watch
   ```
