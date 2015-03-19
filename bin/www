@@ -4,9 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+// var app = require('../app');
+var apps = require('../app');
 var debug = require('debug')('aurelia-sockjs-token:server');
 var http = require('http');
+
+var sockservice = apps.socketServer;
+// var socketserver = require('../socketserver');
+// var sockservice = socketserver.socketServer;
+// var tokenServer = socketserver.tokenServer;
+var app = apps.app;
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +27,12 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Bind socket-multiplexer to express app
+ */
+
+sockservice.installHandlers(server, {prefix:'/sockets'});
 
 /**
  * Listen on provided port, on all network interfaces.

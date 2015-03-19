@@ -1,8 +1,12 @@
-System.register([], function (_export) {
-  var _createClass, _classCallCheck, Welcome, UpperValueConverter;
+System.register(["sockjs-client", "token-sockjs-client"], function (_export) {
+  var sock, TokenSocket, _createClass, _classCallCheck, Welcome, UpperValueConverter;
 
   return {
-    setters: [],
+    setters: [function (_sockjsClient) {
+      sock = _sockjsClient.sock;
+    }, function (_tokenSockjsClient) {
+      TokenSocket = _tokenSockjsClient["default"];
+    }],
     execute: function () {
       "use strict";
 
@@ -17,6 +21,18 @@ System.register([], function (_export) {
           this.heading = "Welcome to the Aurelia Navigation App!";
           this.firstName = "John";
           this.lastName = "Doe";
+
+          var options = {
+            host: "http://localhost:3000",
+            tokenPath: "/socket/token",
+            socketPrefix: "/sockets",
+            reconnect: true,
+            authentication: {
+              authuser: "aa",
+              pin: "x0x8uldkj"
+            }
+          };
+          var socket = new TokenSocket(options);
         }
 
         _createClass(Welcome, {
@@ -52,4 +68,4 @@ System.register([], function (_export) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlbGNvbWUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtxQ0FBYSxPQUFPLEVBZ0JQLG1CQUFtQjs7Ozs7Ozs7Ozs7QUFoQm5CLGFBQU87QUFDUCxpQkFEQSxPQUFPLEdBQ0w7Z0NBREYsT0FBTzs7QUFFaEIsY0FBSSxDQUFDLE9BQU8sR0FBRyx3Q0FBd0MsQ0FBQztBQUN4RCxjQUFJLENBQUMsU0FBUyxHQUFHLE1BQU0sQ0FBQztBQUN4QixjQUFJLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQztTQUN2Qjs7cUJBTFUsT0FBTztBQU9kLGtCQUFRO2lCQUFBLFlBQUU7QUFDWiwwQkFBVSxJQUFJLENBQUMsU0FBUyxTQUFJLElBQUksQ0FBQyxRQUFRLENBQUc7YUFDN0M7O0FBRUQsaUJBQU87bUJBQUEsbUJBQUU7QUFDUCxtQkFBSyxlQUFhLElBQUksQ0FBQyxRQUFRLE9BQUksQ0FBQzthQUNyQzs7OztlQWJVLE9BQU87O0FBZ0JQLHlCQUFtQjtpQkFBbkIsbUJBQW1CO2dDQUFuQixtQkFBbUI7OztxQkFBbkIsbUJBQW1CO0FBQzlCLGdCQUFNO21CQUFBLGdCQUFDLEtBQUssRUFBQztBQUNYLHFCQUFPLEtBQUssSUFBSSxLQUFLLENBQUMsV0FBVyxFQUFFLENBQUM7YUFDckM7Ozs7ZUFIVSxtQkFBbUIiLCJmaWxlIjoid2VsY29tZS5qcyIsInNvdXJjZVJvb3QiOiIvc3JjLyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlbGNvbWUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLElBQUksRUFDTCxXQUFXLGlDQUVMLE9BQU8sRUE2QlAsbUJBQW1COzs7O0FBaEN4QixVQUFJLGlCQUFKLElBQUk7O0FBQ0wsaUJBQVc7Ozs7Ozs7OztBQUVMLGFBQU87QUFDUCxpQkFEQSxPQUFPLEdBQ0w7Z0NBREYsT0FBTzs7QUFFaEIsY0FBSSxDQUFDLE9BQU8sR0FBRyx3Q0FBd0MsQ0FBQztBQUN4RCxjQUFJLENBQUMsU0FBUyxHQUFHLE1BQU0sQ0FBQztBQUN4QixjQUFJLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQzs7QUFHdEIsY0FBSSxPQUFPLEdBQUc7QUFDWixnQkFBSSxFQUFFLHVCQUF1QjtBQUM3QixxQkFBUyxFQUFFLGVBQWU7QUFDMUIsd0JBQVksRUFBRSxVQUFVO0FBQ3hCLHFCQUFTLEVBQUUsSUFBSTtBQUNmLDBCQUFjLEVBQUU7QUFDZCxzQkFBUSxFQUFFLElBQUk7QUFDZCxpQkFBRyxFQUFFLFdBQVc7YUFDakI7V0FDRixDQUFDO0FBQ0YsY0FBSSxNQUFNLEdBQUcsSUFBSSxXQUFXLENBQUMsT0FBTyxDQUFDLENBQUM7U0FDdkM7O3FCQWxCVSxPQUFPO0FBb0JkLGtCQUFRO2lCQUFBLFlBQUU7QUFDWiwwQkFBVSxJQUFJLENBQUMsU0FBUyxTQUFJLElBQUksQ0FBQyxRQUFRLENBQUc7YUFDN0M7O0FBRUQsaUJBQU87bUJBQUEsbUJBQUU7QUFDUCxtQkFBSyxlQUFhLElBQUksQ0FBQyxRQUFRLE9BQUksQ0FBQzthQUNyQzs7OztlQTFCVSxPQUFPOztBQTZCUCx5QkFBbUI7aUJBQW5CLG1CQUFtQjtnQ0FBbkIsbUJBQW1COzs7cUJBQW5CLG1CQUFtQjtBQUM5QixnQkFBTTttQkFBQSxnQkFBQyxLQUFLLEVBQUM7QUFDWCxxQkFBTyxLQUFLLElBQUksS0FBSyxDQUFDLFdBQVcsRUFBRSxDQUFDO2FBQ3JDOzs7O2VBSFUsbUJBQW1CIiwiZmlsZSI6IndlbGNvbWUuanMiLCJzb3VyY2VSb290IjoiL3NyYy8ifQ==

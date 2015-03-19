@@ -54,7 +54,9 @@
       "aurelia-http-client": "github:aurelia/http-client@^0.5.5",
       "aurelia-router": "github:aurelia/router@^0.5.8",
       "bootstrap": "github:twbs/bootstrap@^3.3.1",
-      "font-awesome": "npm:font-awesome@^4.3.0"
+      "font-awesome": "npm:font-awesome@^4.3.0",
+      "sockjs-client": "^0.3.4",
+      "token-sockjs-client": "github:MauricioKruijer/token-sockjs-client@master"
     }
   }
 }

@@ -16,6 +16,8 @@ System.config({
     "aurelia-router": "github:aurelia/router@0.5.8",
     "bootstrap": "github:twbs/bootstrap@3.3.2",
     "font-awesome": "npm:font-awesome@4.3.0",
+    "sockjs-client": "github:sockjs/sockjs-client@0.3.4",
+    "token-sockjs-client": "github:MauricioKruijer/token-sockjs-client@master",
     "github:aurelia/binding@0.3.7": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.4.5",
       "aurelia-metadata": "github:aurelia/metadata@0.3.3",

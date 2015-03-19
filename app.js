@@ -5,39 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var redis = require("redis"),
-    http = require('http'),
-    sockjs = require("sockjs"),
-    TokenSocketServer = require("node-token-sockjs"), 
 
-    redisClient = redis.createClient(),
-    pubsubClient = redis.createClient(), 
-    socketServer = sockjs.createServer();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var server = http.createServer(app);
-var socketOptions = {
-    prefix: "/sockets"
-};
-socketServer.installHandlers(server, socketOptions);
-var tokenServer = new TokenSocketServer(app, redisClient, socketServer, {
-    prefix: socketOptions.prefix,
-    tokenRoute: "/socket/token",
-    pubsubClient: pubsubClient,
-    // socketController: controller,
-    // customMiddleware: customMiddleware,
-    // authentication: authenticationFn,
-    debug: app.get("env") !== "production"//,
-    // routes: {
-    //     user: {
-    //         read: readUsers // now this can be called via the RPC interface
-    //     }
-    // }
-});
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
 
+    next();
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -49,6 +29,7 @@ app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Dont show GET etc logs
@@ -57,12 +38,48 @@ app.use(logger('dev'));
 app.use('/', routes);
 app.use('/users', users);
 
+
+
+
+var redis = require("redis"),
+    sockjs = require("sockjs"),
+    TokenSocketServer = require("node-token-sockjs");
+var socketServer = sockjs.createServer();
+var redisClient = redis.createClient(),
+    pubsubClient = redis.createClient();
+
+var socketOptions = {
+    prefix: "/sockets"
+};
+var tokenServer = new TokenSocketServer(app, redisClient, socketServer, {
+    prefix: socketOptions.prefix,
+    tokenRoute: "/socket/token",
+    pubsubClient: pubsubClient,
+    authentication: function(req, callback){
+        var auth = {
+            username:"Mauricio",
+            passhash: "Mwuahah"
+        };
+        return callback(null, auth);
+    },
+    debug: app.get("env") !== "production"//,
+});
+tokenServer.on("authentication", function(socket, auth, callback){
+    console.log("auuuthhhh");
+    callback();
+});
+
+
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
+
 
 // error handlers
 
@@ -89,4 +106,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+// module.exports = app;
+
+module.exports = {app: app, socketServer: socketServer};
