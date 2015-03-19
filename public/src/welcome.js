@@ -18,7 +18,16 @@ export class Welcome{
         pin: "x0x8uldkj"
       }
     };
-    var socket = new TokenSocket(options);
+    let socket = new TokenSocket(options);
+    socket.ready(error => {
+      if (error) {
+        console.log("Error creating websocket!", error);
+        return error;
+      }
+      console.log("connection made");
+
+      socket.subscribe("channelX");
+    });
   }
 
   get fullName(){
