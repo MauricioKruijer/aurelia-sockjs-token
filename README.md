@@ -2,7 +2,7 @@
 
 This project is based on the Aurelia-skeleton-navigation. It contains Express as backend server with a few modified scripts.
 
-I'm trying to implement node-token-sockjs with Aurelia.
+I'm trying to implement [node-token-sockjs](https://github.com/azuqua/node-token-sockjs) with [Aurelia](http://aurelia.io/).
 
 ## Running The App
 
