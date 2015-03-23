@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 var app = require('../app');
-var apps = require('../app');
 var debug = require('debug')('aurelia-sockjs-token:server');
 var http = require('http');
 
