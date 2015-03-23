@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -38,40 +36,8 @@ app.use(logger('dev'));
 app.use('/', routes);
 app.use('/users', users);
 
-
-
-
-var redis = require("redis"),
-    sockjs = require("sockjs"),
-    TokenSocketServer = require("node-token-sockjs");
-var socketServer = sockjs.createServer();
-var redisClient = redis.createClient(),
-    pubsubClient = redis.createClient();
-
-var socketOptions = {
-    prefix: "/sockets"
-};
-var tokenServer = new TokenSocketServer(app, redisClient, socketServer, {
-    prefix: socketOptions.prefix,
-    tokenRoute: "/socket/token",
-    pubsubClient: pubsubClient,
-    authentication: function(req, callback){
-        var auth = {
-            username:"Mauricio",
-            passhash: "Mwuahah"
-        };
-        return callback(null, auth);
-    },
-    debug: app.get("env") !== "production"//,
-});
-tokenServer.on("authentication", function(socket, auth, callback){
-    console.log("auuuthhhh");
-    callback();
-});
-
-
-
-
+// save socketser as app setting
+app.set('socketserver', require('./socketserver')(app));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -105,7 +71,4 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-// module.exports = app;
-
-module.exports = {app: app, socketServer: socketServer};
+module.exports = app;
