@@ -33,6 +33,8 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
         _createClass(SockChannels, {
           activate: {
             value: function activate() {
+              var _this = this;
+
               //this.username = this.user.name;
               //console.log(this.appconfig.socketServer);
               var options = {
@@ -47,20 +49,16 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
                 }
               };
               this.socket = new TokenSocket(options);
-              //this.socket = socket;
-              //this.socket.end(function() {
-              //  console.log("connection closed");
-              //});
 
-              //socket.ready(error => {
-              //  if (error) {
-              //    console.log("Error creating websocket!", error);
-              //    return error;
-              //  }
-              //  console.log("connection made");
-              //
-              //  socket.subscribe("channelX");
-              //});
+              this.socket.ready(function (error) {
+                if (error) {
+                  console.log("Error creating websocket!", error);
+                  return error;
+                }
+                console.log("connection made");
+
+                _this.socket.subscribe("channelX");
+              });
             }
           },
           deactivate: {
@@ -77,4 +75,4 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvY2stY2hhbm5lbHMuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLFNBQVMsRUFFVCxJQUFJLEVBQ0wsV0FBVyxpQ0FJTCxZQUFZOzs7O0FBUGpCLGVBQVMsY0FBVCxTQUFTOztBQUVULFVBQUksaUJBQUosSUFBSTs7QUFDTCxpQkFBVzs7Ozs7Ozs7Ozs7QUFJTCxrQkFBWTs7O0FBR1osaUJBSEEsWUFBWSxHQUdUO2dDQUhILFlBQVk7OztBQUtyQixjQUFJLENBQUMsU0FBUyxHQUFHLElBQUksU0FBUyxFQUFFLENBQUM7O0FBRWpDLGNBQUksQ0FBQyxPQUFPLEdBQUcsU0FBUyxDQUFDO1NBRTFCOztxQkFUVSxZQUFZO0FBVXZCLGtCQUFRO21CQUFBLG9CQUFHOzs7QUFHVCxrQkFBSSxPQUFPLEdBQUc7O0FBRVosb0JBQUksRUFBRSxJQUFJLENBQUMsU0FBUyxDQUFDLFlBQVk7QUFDakMseUJBQVMsRUFBRSxlQUFlO0FBQzFCLDRCQUFZLEVBQUUsVUFBVTtBQUN4Qix5QkFBUyxFQUFFLElBQUk7QUFDZiw4QkFBYyxFQUFFO0FBQ2QsMEJBQVEsRUFBRSxNQUFNO0FBQ2hCLHFCQUFHLEVBQUUsWUFBWTtpQkFDbEI7ZUFDRixDQUFDO0FBQ0Ysa0JBQUksQ0FBQyxNQUFNLEdBQUcsSUFBSSxXQUFXLENBQUMsT0FBTyxDQUFDLENBQUM7Ozs7Ozs7Ozs7Ozs7OzthQWdCeEM7O0FBQ0Qsb0JBQVU7bUJBQUEsc0JBQUc7QUFDWCxrQkFBSSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsWUFBVztBQUN6Qix1QkFBTyxDQUFDLEdBQUcsQ0FBQywwQkFBMEIsQ0FBQyxDQUFDO2VBQ3pDLENBQUMsQ0FBQzthQUNKOzs7O2VBN0NVLFlBQVkiLCJmaWxlIjoic29jay1jaGFubmVscy5qcyIsInNvdXJjZVJvb3QiOiIvc3JjLyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvY2stY2hhbm5lbHMuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLFNBQVMsRUFFVCxJQUFJLEVBQ0wsV0FBVyxpQ0FJTCxZQUFZOzs7O0FBUGpCLGVBQVMsY0FBVCxTQUFTOztBQUVULFVBQUksaUJBQUosSUFBSTs7QUFDTCxpQkFBVzs7Ozs7Ozs7Ozs7QUFJTCxrQkFBWTs7O0FBR1osaUJBSEEsWUFBWSxHQUdUO2dDQUhILFlBQVk7OztBQUtyQixjQUFJLENBQUMsU0FBUyxHQUFHLElBQUksU0FBUyxFQUFFLENBQUM7O0FBRWpDLGNBQUksQ0FBQyxPQUFPLEdBQUcsU0FBUyxDQUFDO1NBRTFCOztxQkFUVSxZQUFZO0FBVXZCLGtCQUFRO21CQUFBLG9CQUFHOzs7OztBQUdULGtCQUFJLE9BQU8sR0FBRzs7QUFFWixvQkFBSSxFQUFFLElBQUksQ0FBQyxTQUFTLENBQUMsWUFBWTtBQUNqQyx5QkFBUyxFQUFFLGVBQWU7QUFDMUIsNEJBQVksRUFBRSxVQUFVO0FBQ3hCLHlCQUFTLEVBQUUsSUFBSTtBQUNmLDhCQUFjLEVBQUU7QUFDZCwwQkFBUSxFQUFFLE1BQU07QUFDaEIscUJBQUcsRUFBRSxZQUFZO2lCQUNsQjtlQUNGLENBQUM7QUFDRixrQkFBSSxDQUFDLE1BQU0sR0FBRyxJQUFJLFdBQVcsQ0FBQyxPQUFPLENBQUMsQ0FBQzs7QUFFdkMsa0JBQUksQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLFVBQUEsS0FBSyxFQUFJO0FBQ3pCLG9CQUFJLEtBQUssRUFBRTtBQUNULHlCQUFPLENBQUMsR0FBRyxDQUFDLDJCQUEyQixFQUFFLEtBQUssQ0FBQyxDQUFDO0FBQ2hELHlCQUFPLEtBQUssQ0FBQztpQkFDZDtBQUNELHVCQUFPLENBQUMsR0FBRyxDQUFDLGlCQUFpQixDQUFDLENBQUM7O0FBRS9CLHNCQUFLLE1BQU0sQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDLENBQUM7ZUFDbkMsQ0FBQyxDQUFDO2FBRUo7O0FBQ0Qsb0JBQVU7bUJBQUEsc0JBQUc7QUFDWCxrQkFBSSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsWUFBVztBQUN6Qix1QkFBTyxDQUFDLEdBQUcsQ0FBQywwQkFBMEIsQ0FBQyxDQUFDO2VBQ3pDLENBQUMsQ0FBQzthQUNKOzs7O2VBekNVLFlBQVkiLCJmaWxlIjoic29jay1jaGFubmVscy5qcyIsInNvdXJjZVJvb3QiOiIvc3JjLyJ9

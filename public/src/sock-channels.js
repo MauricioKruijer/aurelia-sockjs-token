@@ -30,20 +30,16 @@ export class SockChannels {
       }
     };
     this.socket = new TokenSocket(options);
-    //this.socket = socket;
-    //this.socket.end(function() {
-    //  console.log("connection closed");
-    //});
 
-    //socket.ready(error => {
-    //  if (error) {
-    //    console.log("Error creating websocket!", error);
-    //    return error;
-    //  }
-    //  console.log("connection made");
-    //
-    //  socket.subscribe("channelX");
-    //});
+    this.socket.ready(error => {
+      if (error) {
+        console.log("Error creating websocket!", error);
+        return error;
+      }
+      console.log("connection made");
+
+      this.socket.subscribe("channelX");
+    });
 
   }
   deactivate() {
