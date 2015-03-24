@@ -1,7 +1,7 @@
 /**
  * Created by Mauricio on 24/03/15.
  */
-import {AuthenticationService} from './auth';
+import {AuthenticationService} from '../auth';
 import {AppRouter} from 'aurelia-router';
 
 export class Login {
