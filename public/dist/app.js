@@ -1,11 +1,13 @@
-System.register(["aurelia-router", "bootstrap"], function (_export) {
-  var Router, bootstrap, _createClass, _classCallCheck, App;
+System.register(["aurelia-router", "bootstrap", "./auth"], function (_export) {
+  var Router, bootstrap, AuthorizeStep, _createClass, _classCallCheck, App;
 
   return {
     setters: [function (_aureliaRouter) {
       Router = _aureliaRouter.Router;
     }, function (_bootstrap) {
       bootstrap = _bootstrap["default"];
+    }, function (_auth) {
+      AuthorizeStep = _auth.AuthorizeStep;
     }],
     execute: function () {
       "use strict";
@@ -14,8 +16,6 @@ System.register(["aurelia-router", "bootstrap"], function (_export) {
 
       _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-      //import {AuthorizeStep} from './auth';
-
       App = _export("App", (function () {
         function App(router) {
           _classCallCheck(this, App);
@@ -23,12 +23,8 @@ System.register(["aurelia-router", "bootstrap"], function (_export) {
           this.router = router;
           this.router.configure(function (config) {
             config.title = "Aurelia";
-            //config.addPipelineStep('authorize', AuthorizeStep); // Add a route filter to the authorize extensibility point.
-            config.map([
-            //{ route: 'sock-channels', moduleId: 'sock-channels', auth: true,  nav: true, title: "SockJS Channel example"},
-            { route: "sock-channels", moduleId: "sock-channels", nav: true, title: "SockJS Channel example" }, { route: ["", "welcome"], moduleId: "welcome", nav: true, title: "Welcome" }, { route: "flickr", moduleId: "flickr", nav: true },
-            //{ route: 'login', moduleId: 'login', nav: true},
-            { route: "child-router", moduleId: "child-router", nav: true, title: "Child Router" }]);
+            config.addPipelineStep("authorize", AuthorizeStep); // Add a route filter to the authorize extensibility point.
+            config.map([{ route: "sock-channels", moduleId: "sock-channels", auth: true, nav: true, title: "SockJS Channel example" }, { route: ["", "welcome"], moduleId: "welcome", nav: true, title: "Welcome" }, { route: "flickr", moduleId: "flickr", nav: true }, { route: "login", moduleId: "login", nav: true }, { route: "child-router", moduleId: "child-router", nav: true, title: "Child Router" }]);
           });
         }
 
@@ -45,4 +41,4 @@ System.register(["aurelia-router", "bootstrap"], function (_export) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO01BQVEsTUFBTSxFQUNQLFNBQVMsaUNBSUgsR0FBRzs7OztBQUxSLFlBQU0sa0JBQU4sTUFBTTs7QUFDUCxlQUFTOzs7Ozs7Ozs7OztBQUlILFNBQUc7QUFFSCxpQkFGQSxHQUFHLENBRUYsTUFBTSxFQUFFO2dDQUZULEdBQUc7O0FBR1osY0FBSSxDQUFDLE1BQU0sR0FBRyxNQUFNLENBQUM7QUFDckIsY0FBSSxDQUFDLE1BQU0sQ0FBQyxTQUFTLENBQUMsVUFBQSxNQUFNLEVBQUk7QUFDOUIsa0JBQU0sQ0FBQyxLQUFLLEdBQUcsU0FBUyxDQUFDOztBQUV6QixrQkFBTSxDQUFDLEdBQUcsQ0FBQzs7QUFFVCxjQUFFLEtBQUssRUFBRSxlQUFlLEVBQUUsUUFBUSxFQUFFLGVBQWUsRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFFLEtBQUssRUFBRSx3QkFBd0IsRUFBQyxFQUNoRyxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBQyxTQUFTLENBQUMsRUFBRyxRQUFRLEVBQUUsU0FBUyxFQUFPLEdBQUcsRUFBRSxJQUFJLEVBQUUsS0FBSyxFQUFDLFNBQVMsRUFBRSxFQUNoRixFQUFFLEtBQUssRUFBRSxRQUFRLEVBQVMsUUFBUSxFQUFFLFFBQVEsRUFBUSxHQUFHLEVBQUUsSUFBSSxFQUFFOztBQUUvRCxjQUFFLEtBQUssRUFBRSxjQUFjLEVBQUcsUUFBUSxFQUFFLGNBQWMsRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFFLEtBQUssRUFBQyxjQUFjLEVBQUUsQ0FDdEYsQ0FBQyxDQUFDO1dBQ0osQ0FBQyxDQUFDO1NBQ0o7O3FCQWhCVSxHQUFHO0FBQ1AsZ0JBQU07bUJBQUEsa0JBQUc7QUFBRSxxQkFBTyxDQUFDLE1BQU0sQ0FBQyxDQUFDO2FBQUU7Ozs7ZUFEekIsR0FBRyIsImZpbGUiOiJhcHAuanMiLCJzb3VyY2VSb290IjoiL3NyYy8ifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO01BQVEsTUFBTSxFQUNQLFNBQVMsRUFFUixhQUFhLGlDQUVSLEdBQUc7Ozs7QUFMUixZQUFNLGtCQUFOLE1BQU07O0FBQ1AsZUFBUzs7QUFFUixtQkFBYSxTQUFiLGFBQWE7Ozs7Ozs7OztBQUVSLFNBQUc7QUFFSCxpQkFGQSxHQUFHLENBRUYsTUFBTSxFQUFFO2dDQUZULEdBQUc7O0FBR1osY0FBSSxDQUFDLE1BQU0sR0FBRyxNQUFNLENBQUM7QUFDckIsY0FBSSxDQUFDLE1BQU0sQ0FBQyxTQUFTLENBQUMsVUFBQSxNQUFNLEVBQUk7QUFDOUIsa0JBQU0sQ0FBQyxLQUFLLEdBQUcsU0FBUyxDQUFDO0FBQ3pCLGtCQUFNLENBQUMsZUFBZSxDQUFDLFdBQVcsRUFBRSxhQUFhLENBQUMsQ0FBQztBQUNuRCxrQkFBTSxDQUFDLEdBQUcsQ0FBQyxDQUNULEVBQUUsS0FBSyxFQUFFLGVBQWUsRUFBRSxRQUFRLEVBQUUsZUFBZSxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUcsR0FBRyxFQUFFLElBQUksRUFBRSxLQUFLLEVBQUUsd0JBQXdCLEVBQUMsRUFDN0csRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUMsU0FBUyxDQUFDLEVBQUcsUUFBUSxFQUFFLFNBQVMsRUFBTyxHQUFHLEVBQUUsSUFBSSxFQUFFLEtBQUssRUFBQyxTQUFTLEVBQUUsRUFDaEYsRUFBRSxLQUFLLEVBQUUsUUFBUSxFQUFTLFFBQVEsRUFBRSxRQUFRLEVBQVEsR0FBRyxFQUFFLElBQUksRUFBRSxFQUMvRCxFQUFFLEtBQUssRUFBRSxPQUFPLEVBQUUsUUFBUSxFQUFFLE9BQU8sRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFDLEVBQy9DLEVBQUUsS0FBSyxFQUFFLGNBQWMsRUFBRyxRQUFRLEVBQUUsY0FBYyxFQUFFLEdBQUcsRUFBRSxJQUFJLEVBQUUsS0FBSyxFQUFDLGNBQWMsRUFBRSxDQUN0RixDQUFDLENBQUM7V0FDSixDQUFDLENBQUM7U0FDSjs7cUJBZlUsR0FBRztBQUNQLGdCQUFNO21CQUFBLGtCQUFHO0FBQUUscUJBQU8sQ0FBQyxNQUFNLENBQUMsQ0FBQzthQUFFOzs7O2VBRHpCLEdBQUciLCJmaWxlIjoiYXBwLmpzIiwic291cmNlUm9vdCI6Ii9zcmMvIn0=

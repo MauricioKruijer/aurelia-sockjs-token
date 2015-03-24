@@ -1,5 +1,5 @@
-System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], function (_export) {
-  var Appconfig, sock, TokenSocket, _createClass, _classCallCheck, SockChannels;
+System.register(["./appconfig", "sockjs-client", "token-sockjs-client", "./auth"], function (_export) {
+  var Appconfig, sock, TokenSocket, AuthenticationService, _createClass, _classCallCheck, SockChannels;
 
   return {
     setters: [function (_appconfig) {
@@ -8,6 +8,8 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
       sock = _sockjsClient.sock;
     }, function (_tokenSockjsClient) {
       TokenSocket = _tokenSockjsClient["default"];
+    }, function (_auth) {
+      AuthenticationService = _auth.AuthenticationService;
     }],
     execute: function () {
       "use strict";
@@ -16,17 +18,13 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
 
       _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-      //import {AuthenticationService} from './auth';
-
       SockChannels = _export("SockChannels", (function () {
-        //static inject() { return[AuthenticationService]; }
-        //constructor(authenticationService) {
-        function SockChannels() {
+        function SockChannels(authenticationService) {
           _classCallCheck(this, SockChannels);
 
-          //this.authService = authenticationService;
+          this.authService = authenticationService;
           this.appConfig = new Appconfig();
-          //this.user = authenticationService.user;
+          this.user = authenticationService.user;
           this.heading = "Hellooo";
         }
 
@@ -35,10 +33,9 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
             value: function activate() {
               var _this = this;
 
-              //this.username = this.user.name;
-              //console.log(this.appconfig.socketServer);
+              this.username = this.user.name;
+
               var options = {
-                //host: "http://localhost:3000",
                 host: this.appConfig.socketServer,
                 tokenPath: "/socket/token",
                 socketPrefix: "/sockets",
@@ -68,6 +65,12 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
               });
             }
           }
+        }, {
+          inject: {
+            value: function inject() {
+              return [AuthenticationService];
+            }
+          }
         });
 
         return SockChannels;
@@ -75,4 +78,4 @@ System.register(["./appconfig", "sockjs-client", "token-sockjs-client"], functio
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvY2stY2hhbm5lbHMuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLFNBQVMsRUFFVCxJQUFJLEVBQ0wsV0FBVyxpQ0FJTCxZQUFZOzs7O0FBUGpCLGVBQVMsY0FBVCxTQUFTOztBQUVULFVBQUksaUJBQUosSUFBSTs7QUFDTCxpQkFBVzs7Ozs7Ozs7Ozs7QUFJTCxrQkFBWTs7O0FBR1osaUJBSEEsWUFBWSxHQUdUO2dDQUhILFlBQVk7OztBQUtyQixjQUFJLENBQUMsU0FBUyxHQUFHLElBQUksU0FBUyxFQUFFLENBQUM7O0FBRWpDLGNBQUksQ0FBQyxPQUFPLEdBQUcsU0FBUyxDQUFDO1NBRTFCOztxQkFUVSxZQUFZO0FBVXZCLGtCQUFRO21CQUFBLG9CQUFHOzs7OztBQUdULGtCQUFJLE9BQU8sR0FBRzs7QUFFWixvQkFBSSxFQUFFLElBQUksQ0FBQyxTQUFTLENBQUMsWUFBWTtBQUNqQyx5QkFBUyxFQUFFLGVBQWU7QUFDMUIsNEJBQVksRUFBRSxVQUFVO0FBQ3hCLHlCQUFTLEVBQUUsSUFBSTtBQUNmLDhCQUFjLEVBQUU7QUFDZCwwQkFBUSxFQUFFLE1BQU07QUFDaEIscUJBQUcsRUFBRSxZQUFZO2lCQUNsQjtlQUNGLENBQUM7QUFDRixrQkFBSSxDQUFDLE1BQU0sR0FBRyxJQUFJLFdBQVcsQ0FBQyxPQUFPLENBQUMsQ0FBQzs7QUFFdkMsa0JBQUksQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLFVBQUEsS0FBSyxFQUFJO0FBQ3pCLG9CQUFJLEtBQUssRUFBRTtBQUNULHlCQUFPLENBQUMsR0FBRyxDQUFDLDJCQUEyQixFQUFFLEtBQUssQ0FBQyxDQUFDO0FBQ2hELHlCQUFPLEtBQUssQ0FBQztpQkFDZDtBQUNELHVCQUFPLENBQUMsR0FBRyxDQUFDLGlCQUFpQixDQUFDLENBQUM7O0FBRS9CLHNCQUFLLE1BQU0sQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDLENBQUM7ZUFDbkMsQ0FBQyxDQUFDO2FBRUo7O0FBQ0Qsb0JBQVU7bUJBQUEsc0JBQUc7QUFDWCxrQkFBSSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsWUFBVztBQUN6Qix1QkFBTyxDQUFDLEdBQUcsQ0FBQywwQkFBMEIsQ0FBQyxDQUFDO2VBQ3pDLENBQUMsQ0FBQzthQUNKOzs7O2VBekNVLFlBQVkiLCJmaWxlIjoic29jay1jaGFubmVscy5qcyIsInNvdXJjZVJvb3QiOiIvc3JjLyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNvY2stY2hhbm5lbHMuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLFNBQVMsRUFFVCxJQUFJLEVBQ0wsV0FBVyxFQUVWLHFCQUFxQixpQ0FFaEIsWUFBWTs7OztBQVBqQixlQUFTLGNBQVQsU0FBUzs7QUFFVCxVQUFJLGlCQUFKLElBQUk7O0FBQ0wsaUJBQVc7O0FBRVYsMkJBQXFCLFNBQXJCLHFCQUFxQjs7Ozs7Ozs7O0FBRWhCLGtCQUFZO0FBRVosaUJBRkEsWUFBWSxDQUVYLHFCQUFxQixFQUFFO2dDQUZ4QixZQUFZOztBQUdyQixjQUFJLENBQUMsV0FBVyxHQUFHLHFCQUFxQixDQUFDO0FBQ3pDLGNBQUksQ0FBQyxTQUFTLEdBQUcsSUFBSSxTQUFTLEVBQUUsQ0FBQztBQUNqQyxjQUFJLENBQUMsSUFBSSxHQUFHLHFCQUFxQixDQUFDLElBQUksQ0FBQztBQUN2QyxjQUFJLENBQUMsT0FBTyxHQUFHLFNBQVMsQ0FBQztTQUUxQjs7cUJBUlUsWUFBWTtBQVN2QixrQkFBUTttQkFBQSxvQkFBRzs7O0FBQ1Qsa0JBQUksQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUM7O0FBRS9CLGtCQUFJLE9BQU8sR0FBRztBQUNaLG9CQUFJLEVBQUUsSUFBSSxDQUFDLFNBQVMsQ0FBQyxZQUFZO0FBQ2pDLHlCQUFTLEVBQUUsZUFBZTtBQUMxQiw0QkFBWSxFQUFFLFVBQVU7QUFDeEIseUJBQVMsRUFBRSxJQUFJO0FBQ2YsOEJBQWMsRUFBRTtBQUNkLDBCQUFRLEVBQUUsTUFBTTtBQUNoQixxQkFBRyxFQUFFLFlBQVk7aUJBQ2xCO2VBQ0YsQ0FBQztBQUNGLGtCQUFJLENBQUMsTUFBTSxHQUFHLElBQUksV0FBVyxDQUFDLE9BQU8sQ0FBQyxDQUFDOztBQUV2QyxrQkFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsVUFBQSxLQUFLLEVBQUk7QUFDekIsb0JBQUksS0FBSyxFQUFFO0FBQ1QseUJBQU8sQ0FBQyxHQUFHLENBQUMsMkJBQTJCLEVBQUUsS0FBSyxDQUFDLENBQUM7QUFDaEQseUJBQU8sS0FBSyxDQUFDO2lCQUNkO0FBQ0QsdUJBQU8sQ0FBQyxHQUFHLENBQUMsaUJBQWlCLENBQUMsQ0FBQzs7QUFFL0Isc0JBQUssTUFBTSxDQUFDLFNBQVMsQ0FBQyxVQUFVLENBQUMsQ0FBQztlQUNuQyxDQUFDLENBQUM7YUFFSjs7QUFDRCxvQkFBVTttQkFBQSxzQkFBRztBQUNYLGtCQUFJLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxZQUFXO0FBQ3pCLHVCQUFPLENBQUMsR0FBRyxDQUFDLDBCQUEwQixDQUFDLENBQUM7ZUFDekMsQ0FBQyxDQUFDO2FBQ0o7OztBQXRDTSxnQkFBTTttQkFBQSxrQkFBRztBQUFFLHFCQUFNLENBQUMscUJBQXFCLENBQUMsQ0FBQzthQUFFOzs7O2VBRHZDLFlBQVkiLCJmaWxlIjoic29jay1jaGFubmVscy5qcyIsInNvdXJjZVJvb3QiOiIvc3JjLyJ9

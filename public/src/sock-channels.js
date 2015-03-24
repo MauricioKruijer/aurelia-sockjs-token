@@ -3,23 +3,21 @@ import {Appconfig} from './appconfig';
 import {sock} from 'sockjs-client';
 import TokenSocket from 'token-sockjs-client';
 
-//import {AuthenticationService} from './auth';
+import {AuthenticationService} from './auth';
 
 export class SockChannels {
-  //static inject() { return[AuthenticationService]; }
-  //constructor(authenticationService) {
-  constructor() {
-    //this.authService = authenticationService;
+  static inject() { return[AuthenticationService]; }
+  constructor(authenticationService) {
+    this.authService = authenticationService;
     this.appConfig = new Appconfig();
-    //this.user = authenticationService.user;
+    this.user = authenticationService.user;
     this.heading = "Hellooo";
 
   }
   activate() {
-    //this.username = this.user.name;
-    //console.log(this.appconfig.socketServer);
+    this.username = this.user.name;
+
     var options = {
-      //host: "http://localhost:3000",
       host: this.appConfig.socketServer,
       tokenPath: "/socket/token",
       socketPrefix: "/sockets",
