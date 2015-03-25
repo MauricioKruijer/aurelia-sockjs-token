@@ -6,7 +6,8 @@ export class Logout {
   constructor(authService, appRouter) {
     this.authService = authService;
     this.appRouter = appRouter;
-
+  }
+  activate() {
     if(!this.authService.user) {
       this.appRouter.navigate("/login");
     }

@@ -15,7 +15,9 @@ export class SockChannels {
 
   }
   activate() {
-    this.username = this.user.name;
+    let user = this.user;
+
+    this.username = user.name;
 
     var options = {
       host: this.appConfig.socketServer,
@@ -36,7 +38,7 @@ export class SockChannels {
       }
       console.log("connection made");
 
-      this.socket.subscribe("channelX");
+      this.socket.subscribe(user.current_channel);
     });
 
   }

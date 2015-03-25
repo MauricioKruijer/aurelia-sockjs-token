@@ -1,6 +1,3 @@
-/**
- * Created by Mauricio on 24/03/15.
- */
 import {Redirect} from 'aurelia-router';
 const SIMULATE_LATENCY = true;
 
@@ -18,6 +15,7 @@ let user = null;
 class User {
   constructor(name) {
     this.name = name;
+    this.current_channel = "channelX";
   }
 }
 
@@ -27,14 +25,14 @@ export class AuthenticationService {
   }
 
   checkLogin() {
-    // If ther is no local user, then there is no point in running
+    // If there is no local user, then there is no point in running
     // a request to the server.
     if (user === null)
       return Promise.resolve(null);
 
     // In a real world environment, where a user is signed in to a
     // server, using cookies or something similar, that login might
-    // expire, without the client beeing notified.
+    // expire, without the client being notified.
     // This here is to simulate a request to the server,
     // to ensure we're still logged in.
     return returnData(resolve => resolve(true))

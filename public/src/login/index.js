@@ -1,6 +1,3 @@
-/**
- * Created by Mauricio on 24/03/15.
- */
 import {AuthenticationService} from '../auth';
 import {AppRouter} from 'aurelia-router';
 
@@ -14,6 +11,9 @@ export class Login {
     this.username = '';
     this.password = '';
 
+
+  }
+  canActivate() {
     if(this.authService.user){
       this.appRouter.navigate("/login/logout");
     }
