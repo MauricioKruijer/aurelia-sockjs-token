@@ -1,16 +1,23 @@
 <template>
-  <section>
-    <h2>${name}</h2>
-    <form submit.delegate="login()">
-      <div class="form-group">
-        <label for="un">Username</label>
-        <input value.bind="username" class="form-control" id="un" type="text"/>
-      </div>
-      <div class="form-group">
-        <label for="pw">Password</label>
-        <input value.bind="password" class="form-control" id="pw" type="password"/>
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+  <section class="row" if.bind="errorMessage">
+    <div class="col-md-2 col-md-offset-5">
+      <p>${errorMessage}</p>
+    </div>
+  </section>
+  <section class="row">
+    <div class="col-md-2 col-md-offset-5">
+      <h2>${name}</h2>
+      <form submit.delegate="login()">
+        <div class="form-group">
+          <label for="un">Username</label>
+          <input value.bind="username" class="form-control" id="un" type="text" autofocus/>
+        </div>
+        <div class="form-group">
+          <label for="pw">Password</label>
+          <input value.bind="password" class="form-control" id="pw" type="password"/>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
    </section>
 </template>

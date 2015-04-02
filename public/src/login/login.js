@@ -11,25 +11,24 @@ export class Login {
     this.username = '';
     this.password = '';
 
+    this.errorMessage = false;
+  }
 
-  }
-  canActivate() {
-    if(this.authService.user){
-      this.appRouter.navigate("/login/logout");
-    }
-  }
   login() {
-    console.log("meh");
+    this.running = true;
     this.authService.login(this.username, this.password)
         .then(success => {
           this.running = false;
+          this.errorMessage = false;
           if (success) {
             this.appRouter.navigate("/sock-channels");
           } else {
             // TODO: Display error
-            throw new Error("Could not authenticate");
+            //throw new Error("Could not authenticate");
+            this.errorMessage = "Could not authenticate";
           }
         }, e => {
+          console.log("errrrr");
           this.running = false;
           return Promise.reject(e);
         });

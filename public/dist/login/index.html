@@ -1,4 +1,9 @@
 <template>
+  <section class="row" if.bind="errorMessage">
+    <div class="col-md-2 col-md-offset-5">
+      <p>${errorMessage}</p>
+    </div>
+  </section>
   <section class="row">
     <div class="col-md-2 col-md-offset-5">
       <h2>${name}</h2>

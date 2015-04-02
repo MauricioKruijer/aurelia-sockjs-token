@@ -88,6 +88,7 @@ export class AuthorizeStep {
   static inject() { return [AuthenticationService]; }
   constructor(authenticationService) {
     this.auth = authenticationService;
+    console.log("Authorize step construct");
   }
 
   run(routingContext, next) {
