@@ -1,9 +1,10 @@
 import {Router,Redirect} from 'aurelia-router';
 import bootstrap from 'bootstrap';
 
-import {AuthorizeStep,AuthenticationService} from './auth';
+import {AuthorizeStep,AuthenticationService} from './services/auth';
 
 export class App {
+  // lkjslkj
   static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
@@ -13,12 +14,12 @@ export class App {
       config.addPipelineStep('authorize', UsercheckStep);
 
       config.map([
-        { route: 'sock-channels', moduleId: 'sock-channels', nav: true, title: "SockJS Channel example", auth: true},
-        { route: ['','welcome'],  moduleId: 'welcome',       nav: true, title:'Welcome' },
-        { route: 'flickr',        moduleId: 'flickr',        nav: true },
-        { route: 'login',         moduleId: './login/login', nav: true, redirectLoggedInUser: "/login/logout"},
-        { route: 'login/logout',  moduleId: './login/logout'},
-        { route: 'child-router',  moduleId: 'child-router',  nav: true, title:'Child Router' }
+        { route: 'sock-channels', moduleId: './routes/sock-channels/sock-channels', nav: true, title: "SockJS Channel example", auth: true},
+        { route: ['','welcome'],  moduleId: './routes/welcome/welcome',       nav: true, title:'Welcome' },
+        { route: 'flickr',        moduleId: './routes/flickr/flickr',        nav: true },
+        { route: 'login',         moduleId: './routes/login/login', nav: true, redirectLoggedInUser: "/login/logout"},
+        { route: 'login/logout',  moduleId: './routes/login/logout'},
+        { route: 'child-router',  moduleId: './routes/child-router/child-router',  nav: true, title:'Child Router' }
       ]);
     });
   }

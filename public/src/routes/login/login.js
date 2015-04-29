@@ -1,4 +1,4 @@
-import {AuthenticationService} from '../auth';
+import {AuthenticationService} from '../../services/auth';
 import {AppRouter} from 'aurelia-router';
 
 export class Login {

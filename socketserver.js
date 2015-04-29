@@ -28,6 +28,30 @@ module.exports = function (app) {
     console.log("auuuthhhh");
     callback();
   });
+  setInterval(function() {
+    tokenServer.publish("ChannelX", {
 
+      picture: "https://pbs.twimg.com/profile_images/2895991891/2149aaee0715728d60c3d621fba8df73_normal.png",
+      name: 'MauricioKruijer',
+      status: 'online',
+      countNewMessages: 1
+
+    });tokenServer.publish("ChannelY", {
+
+      picture: "https://pbs.twimg.com/profile_images/2895991891/2149aaee0715728d60c3d621fba8df73_normal.png",
+      name: 'MauricioKruijer',
+      status: 'online',
+      countNewMessages: 1
+
+    });tokenServer.publish("ChannelZ", {
+
+      picture: "https://pbs.twimg.com/profile_images/2895991891/2149aaee0715728d60c3d621fba8df73_normal.png",
+      name: 'MauricioKruijer',
+      status: 'online',
+      countNewMessages: 1
+
+    });
+    console.log("PUBLISHED TO CHANNELX");
+  }, 2000);
   return socketServer;
 };

@@ -1,9 +1,9 @@
-import {Appconfig} from './appconfig';
+import {Appconfig} from '../../appconfig';
 
 import {sock} from 'sockjs-client';
 import TokenSocket from 'token-sockjs-client';
 
-import {AuthenticationService} from './auth';
+import {AuthenticationService} from '../../services/auth';
 
 export class SockChannels {
   static inject() { return[AuthenticationService]; }
